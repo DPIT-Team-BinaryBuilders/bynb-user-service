@@ -7,14 +7,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "USERS")
-public class User {
+@Table(name = "t_user")
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "user_name", unique = true)
-    private String userName;
+    private String username;
 
     @Column(name = "password_hash")
     private String passwordHash;
@@ -42,5 +42,4 @@ public class User {
 
     @Column(name = "verified")
     private boolean verified;
-
 }
