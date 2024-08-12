@@ -1,6 +1,8 @@
 package com.binarybuilders.bynb_user_service.service;
 
 
+import com.binarybuilders.bynb_user_service.messaging.DangerMessage;
+import com.binarybuilders.bynb_user_service.messaging.UserServiceSender;
 import com.binarybuilders.bynb_user_service.persistence.UserEntity;
 import com.binarybuilders.bynb_user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +15,24 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-
+    private final UserServiceSender userServiceSender;
 
     @Autowired
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, UserServiceSender userServiceSender){
         this.userRepository = userRepository;
+        this.userServiceSender = userServiceSender;
     }
 
     public UserEntity saveUser(UserEntity user){
         return userRepository.save(user);
     }
 
+
+
     public UserEntity getUserById(Long id){
         return userRepository.findById(id).orElse(null);
     }
+
 
     public Optional<UserEntity> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -42,5 +48,9 @@ public class UserService {
 
     public UserEntity updateUser(UserEntity user){
         return userRepository.save(user);
+    }
+
+    public void sendDangerMessage(DangerMessage dangerMessage){
+        userServiceSender.sendDangerMessage(dangerMessage);
     }
 }
