@@ -1,6 +1,5 @@
 package com.binarybuilders.bynb_user_service.controller;
 
-import com.binarybuilders.bynb_user_service.messaging.DangerMessage;
 import com.binarybuilders.bynb_user_service.persistence.UserEntity;
 import com.binarybuilders.bynb_user_service.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -41,17 +40,7 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    @PostMapping("/create_danger")
-    public void createDanger(@RequestBody DangerMessage dangerMessage){
-        System.out.println("Danger message received");
-        userService.sendDangerMessage(dangerMessage);
-    }
 
-    @GetMapping("/1")
-    public String ads(@RequestBody String siaus){
-        System.out.println("Danger message received");
-        return 1 + siaus;
-    }
 
 
 }

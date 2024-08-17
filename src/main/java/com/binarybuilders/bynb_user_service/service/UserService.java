@@ -1,7 +1,6 @@
 package com.binarybuilders.bynb_user_service.service;
 
 
-import com.binarybuilders.bynb_user_service.messaging.DangerMessage;
 import com.binarybuilders.bynb_user_service.messaging.UserServiceSender;
 import com.binarybuilders.bynb_user_service.persistence.UserEntity;
 import com.binarybuilders.bynb_user_service.repository.UserRepository;
@@ -15,12 +14,10 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserServiceSender userServiceSender;
 
     @Autowired
     public UserService(UserRepository userRepository, UserServiceSender userServiceSender){
         this.userRepository = userRepository;
-        this.userServiceSender = userServiceSender;
     }
 
     public UserEntity saveUser(UserEntity user){
@@ -48,9 +45,5 @@ public class UserService {
 
     public UserEntity updateUser(UserEntity user){
         return userRepository.save(user);
-    }
-
-    public void sendDangerMessage(DangerMessage dangerMessage){
-        userServiceSender.sendDangerMessage(dangerMessage);
     }
 }

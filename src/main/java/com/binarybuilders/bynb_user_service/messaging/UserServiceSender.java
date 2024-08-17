@@ -20,15 +20,4 @@ public class UserServiceSender {
         this.objectMapper = objectMapper;
     }
 
-    public void sendDangerMessage(DangerMessage dangerMessage){
-        try {
-            // Convert the Danger object to a JSON string
-            String message = objectMapper.writeValueAsString(dangerMessage);
-
-            // Send the JSON string as a message
-            rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.ROUTING_KEY_USER_TO_DANGER, message);
-        } catch (JsonProcessingException e) {
-            log.error("Error sending danger message: {}", e.getMessage());
-        }
-    }
 }
