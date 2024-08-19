@@ -1,6 +1,7 @@
 package com.binarybuilders.bynb_user_service.service;
 
 
+import com.binarybuilders.bynb_user_service.messaging.UserServiceSender;
 import com.binarybuilders.bynb_user_service.persistence.UserEntity;
 import com.binarybuilders.bynb_user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,8 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-
     @Autowired
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, UserServiceSender userServiceSender){
         this.userRepository = userRepository;
     }
 
@@ -24,9 +24,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
+
+
     public UserEntity getUserById(Long id){
         return userRepository.findById(id).orElse(null);
     }
+
 
     public Optional<UserEntity> getUserByUsername(String username) {
         return userRepository.findByUsername(username);

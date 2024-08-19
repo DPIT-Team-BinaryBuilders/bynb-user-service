@@ -1,22 +1,46 @@
-//package com.binarybuilders.bynb_user_service.controller;
-//
-//import com.binarybuilders.bynb_user_service.service.DangerRequestService;
-//import com.binarybuilders.bynb_user_service.service.UserService;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//@RestController
-//public class UserController {
-//
-//    private final DangerRequestService dangerRequestService;
-//
-//    public UserController(DangerRequestService dangerRequestService) {
-//        this.dangerRequestService = dangerRequestService;
-//    }
-//
-//    @GetMapping("/user/{userId}/danger")
-//    public String getDangerId(@PathVariable String userId) {
-//        return dangerRequestService.getDangerId(userId);
-//    }
-//}
+package com.binarybuilders.bynb_user_service.controller;
+
+import com.binarybuilders.bynb_user_service.persistence.UserEntity;
+import com.binarybuilders.bynb_user_service.service.UserService;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/user")
+public class UserController {
+
+    private UserService userService;
+
+    public UserController(UserService userService){
+        this.userService = userService;
+
+    }
+
+    @PostMapping("/create")
+    public UserEntity saveUser(UserEntity user){
+        return userService.saveUser(user);
+    }
+
+    @GetMapping("/{id}")
+    public UserEntity getUserById(Long id){
+        return userService.getUserById(id);
+    }
+
+    @GetMapping("/all")
+    public Iterable<UserEntity> getAllUsers(){
+        return userService.getAllUsers();
+    }
+
+    @PutMapping("/{id}")
+    public UserEntity updateUser(UserEntity user){
+        return userService.updateUser(user);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(Long id){
+        userService.deleteUser(id);
+    }
+
+
+
+
+}
