@@ -26,3 +26,9 @@ spring:
     basic:
       enabled: false
 
+logging:
+  level:
+    org:
+      springframework:
+        security: trace
+
