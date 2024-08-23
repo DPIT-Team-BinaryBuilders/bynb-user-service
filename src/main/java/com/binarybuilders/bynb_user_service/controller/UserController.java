@@ -21,11 +21,10 @@ public class UserController {
         userService.saveUser(user);
     }
 
-//    @PostMapping("/login")
-//    public UserEntity Login(@RequestBody UserEntity user) {
-//        UserEntity oldUser = userService.getUserByUsername(user.email, user.password);
-//        return oldUser;
-//    }
+    @PostMapping("/login")
+    public int Login(@RequestBody UserEntity user) {
+        return 1;
+    }
 
     @GetMapping("/{id}")
     public UserEntity getUserById(@PathVariable Long id){
@@ -46,8 +45,5 @@ public class UserController {
     public void deleteUser(Long id){
         userService.deleteUser(id);
     }
-
-
-
 
 }
