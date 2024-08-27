@@ -1,8 +1,13 @@
 package com.binarybuilders.bynb_user_service.controller;
 
+import com.binarybuilders.bynb_user_service.dto.AuthResponseDto;
+import com.binarybuilders.bynb_user_service.dto.LoginDto;
 import com.binarybuilders.bynb_user_service.dto.UserDto;
 import com.binarybuilders.bynb_user_service.persistence.UserEntity;
+import com.binarybuilders.bynb_user_service.service.AuthService;
 import com.binarybuilders.bynb_user_service.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,10 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private UserService userService;
+    private AuthService authService;
 
-    public UserController(UserService userService){
+    public UserController(UserService userService, AuthService authService){
         this.userService = userService;
-
+        this.authService = authService;
     }
 
     @PostMapping("/register")
@@ -22,8 +28,16 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public int Login(@RequestBody UserEntity user) {
-        return 1;
+    public ResponseEntity<AuthResponseDto> Login(@RequestBody LoginDto loginDto) {
+        //01 - Receive the token from AuthService
+        String token = authService.login(loginDto);
+
+        //02 - Set the token as a response using JwtAuthResponse Dto class
+        AuthResponseDto authResponseDto = new AuthResponseDto();
+        authResponseDto.setAccessToken(token);
+
+        //03 - Return the response to the user
+        return new ResponseEntity<>(authResponseDto, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

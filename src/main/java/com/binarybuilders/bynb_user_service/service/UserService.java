@@ -1,12 +1,15 @@
 package com.binarybuilders.bynb_user_service.service;
 
 
+import com.binarybuilders.bynb_user_service.config.JwtTokenProvider;
 import com.binarybuilders.bynb_user_service.dto.UserDto;
 import com.binarybuilders.bynb_user_service.exception.EmailExistsException;
 import com.binarybuilders.bynb_user_service.messaging.UserServiceSender;
 import com.binarybuilders.bynb_user_service.persistence.UserEntity;
 import com.binarybuilders.bynb_user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private AuthenticationManager authenticationManager;
+    private JwtTokenProvider jwtTokenProvider;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -38,13 +43,12 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
-
     public UserEntity getUserById(Long id){
         return userRepository.findById(id).orElse(null);
     }
 
 
-    public Optional<UserEntity> getUserByUsername(String username) {
+    public Optional<UserEntity> getUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username);
     }
 
@@ -59,4 +63,5 @@ public class UserService {
     public UserEntity updateUser(UserEntity user){
         return userRepository.save(user);
     }
+
 }
