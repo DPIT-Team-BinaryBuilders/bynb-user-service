@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+
 @Entity
 @Getter
 @Setter
@@ -42,4 +44,9 @@ public class UserEntity {
 
     @Column(name = "verified")
     private boolean verified;
+
+    @ElementCollection
+    @CollectionTable(name = "t_user_dangers", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "danger_id")
+    private ArrayList<Long> dangers;
 }
