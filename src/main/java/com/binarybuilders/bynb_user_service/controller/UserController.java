@@ -1,5 +1,6 @@
 package com.binarybuilders.bynb_user_service.controller;
 
+import com.binarybuilders.bynb_user_service.dto.UserDto;
 import com.binarybuilders.bynb_user_service.persistence.UserEntity;
 import com.binarybuilders.bynb_user_service.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +16,18 @@ public class UserController {
 
     }
 
-    @PostMapping("/create")
-    public UserEntity saveUser(UserEntity user){
-        return userService.saveUser(user);
+    @PostMapping("/register")
+    public void saveUser(@RequestBody UserDto user){
+        userService.saveUser(user);
+    }
+
+    @PostMapping("/login")
+    public int Login(@RequestBody UserEntity user) {
+        return 1;
     }
 
     @GetMapping("/{id}")
-    public UserEntity getUserById(Long id){
+    public UserEntity getUserById(@PathVariable Long id){
         return userService.getUserById(id);
     }
 
@@ -39,8 +45,5 @@ public class UserController {
     public void deleteUser(Long id){
         userService.deleteUser(id);
     }
-
-
-
 
 }
