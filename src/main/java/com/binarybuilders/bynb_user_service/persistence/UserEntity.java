@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -44,6 +45,13 @@ public class UserEntity {
 
     @Column(name = "verified")
     private boolean verified;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "t_user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Set<RoleEntity> roles;
 
     @ElementCollection
     @CollectionTable(name = "t_user_dangers", joinColumns = @JoinColumn(name = "user_id"))

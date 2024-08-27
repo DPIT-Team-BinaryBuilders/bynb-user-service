@@ -15,29 +15,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private UserService userService;
-    private AuthService authService;
 
-    public UserController(UserService userService, AuthService authService){
+    public UserController(UserService userService){
         this.userService = userService;
-        this.authService = authService;
-    }
-
-    @PostMapping("/register")
-    public void saveUser(@RequestBody UserDto user){
-        userService.saveUser(user);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponseDto> Login(@RequestBody LoginDto loginDto) {
-        //01 - Receive the token from AuthService
-        String token = authService.login(loginDto);
-
-        //02 - Set the token as a response using JwtAuthResponse Dto class
-        AuthResponseDto authResponseDto = new AuthResponseDto();
-        authResponseDto.setAccessToken(token);
-
-        //03 - Return the response to the user
-        return new ResponseEntity<>(authResponseDto, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
