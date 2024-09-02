@@ -1,6 +1,9 @@
 package com.binarybuilders.bynb_user_service.controller;
 
+<<<<<<< Updated upstream
 import com.binarybuilders.bynb_user_service.dto.UserDto;
+=======
+>>>>>>> Stashed changes
 import com.binarybuilders.bynb_user_service.persistence.UserEntity;
 import com.binarybuilders.bynb_user_service.service.UserService;
 import org.springframework.web.bind.annotation.*;

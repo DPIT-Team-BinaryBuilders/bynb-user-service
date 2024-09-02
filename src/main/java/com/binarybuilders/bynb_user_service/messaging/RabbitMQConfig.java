@@ -1,10 +1,7 @@
 package com.binarybuilders.bynb_user_service.messaging;
 
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,18 +26,14 @@ public class RabbitMQConfig {
         return new Queue(DANGER_TO_USER_QUEUE, true);
     }
 
-    @Bean
-    TopicExchange exchange() {
-        return new TopicExchange(EXCHANGE_NAME);
-    }
 
     @Bean
-    Binding bindingUserToDanger(Queue userToDangerQueue, TopicExchange exchange) {
+    Binding bindingUserToDanger(Queue userToDangerQueue, DirectExchange exchange) {
         return BindingBuilder.bind(userToDangerQueue).to(exchange).with(ROUTING_KEY_USER_TO_DANGER);
     }
 
     @Bean
-    Binding bindingDangerToUser(Queue dangerToUserQueue, TopicExchange exchange) {
+    Binding bindingDangerToUser(Queue dangerToUserQueue, DirectExchange exchange) {
         return BindingBuilder.bind(dangerToUserQueue).to(exchange).with(ROUTING_KEY_DANGER_TO_USER);
     }
 
@@ -48,5 +41,11 @@ public class RabbitMQConfig {
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         return new RabbitTemplate(connectionFactory);
     }
+
+    @Bean
+    DirectExchange exchange() {
+        return new DirectExchange(EXCHANGE_NAME);
+    }
+
 
 }
