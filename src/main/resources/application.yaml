@@ -1,12 +1,19 @@
 server:
   port: 8081
 
+security:
+  jwt:
+    expiration-minutes: 9999999
+    secret-key: dGhpcyBpcyBteSBzZWN1cmUga2V5IGFuZCB5b3UgY2Fubm90IGhhY2sgaXQ
+
 spring:
+  application:
+    name: user-service
   jpa:
     database: POSTGRESQL
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   datasource:
     url: jdbc:postgresql://localhost:5432/t_user
     username: admin
@@ -22,13 +29,7 @@ spring:
     username: guest
     password: guest
 
-  security:
-    basic:
-      enabled: false
-
 logging:
   level:
-    org:
-      springframework:
-        security: trace
+    org.springframework.security: TRACE
 
