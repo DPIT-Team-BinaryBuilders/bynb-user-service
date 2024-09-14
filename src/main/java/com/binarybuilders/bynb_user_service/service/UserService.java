@@ -1,7 +1,6 @@
 package com.binarybuilders.bynb_user_service.service;
 
 
-<<<<<<< Updated upstream
 import com.binarybuilders.bynb_user_service.dto.UserDto;
 import com.binarybuilders.bynb_user_service.exception.EmailExistsException;
 import com.binarybuilders.bynb_user_service.messaging.UserServiceSender;
@@ -10,11 +9,11 @@ import com.binarybuilders.bynb_user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-=======
+
 import com.binarybuilders.bynb_user_service.persistence.UserEntity;
 import com.binarybuilders.bynb_user_service.repository.UserRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
->>>>>>> Stashed changes
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,10 +23,6 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-<<<<<<< Updated upstream
-    private final PasswordEncoder passwordEncoder;
-=======
->>>>>>> Stashed changes
 
 
 

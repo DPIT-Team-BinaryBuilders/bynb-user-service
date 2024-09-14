@@ -8,12 +8,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
-<<<<<<< Updated upstream
-=======
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
->>>>>>> Stashed changes
+
 
 @Entity
 @Getter
@@ -54,12 +52,12 @@ public class UserEntity implements UserDetails {
     @Column(name = "verified")
     private boolean verified;
 
-<<<<<<< Updated upstream
-    @ElementCollection
-    @CollectionTable(name = "t_user_dangers", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "danger_id")
-    private ArrayList<Long> dangers;
-=======
+
+//    @ElementCollection
+//    @CollectionTable(name = "t_user_dangers", joinColumns = @JoinColumn(name = "user_id"))
+//    @Column(name = "danger_id")
+//    private ArrayList<Long> dangers;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -99,5 +97,5 @@ public class UserEntity implements UserDetails {
 
         return authorities;
     }
->>>>>>> Stashed changes
+
 }
